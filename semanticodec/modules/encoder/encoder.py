@@ -466,6 +466,7 @@ class AudioMAEConditionQuantResEncoder(nn.Module):
         acoustic_feature = self.quantizer.get_output_from_indices(
             acoustic_tokens
         ).reshape(1, token_num, feature_dim)
+        semantic_feature = semantic_feature.to(acoustic_feature.device)
         return torch.cat([acoustic_feature, semantic_feature], dim=-1)
 
     def wrap_return_dict(self, crossattn_audiomae_pooled, tokens):
